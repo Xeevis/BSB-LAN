@@ -1,0 +1,90 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Arduino CLI: Build",
+            "type": "shell",
+            "command": "arduino-cli",
+            "args": [
+                "compile",
+                "--fqbn",
+                "${input:device}",
+                "--build-path",
+                "./bin",
+                "--output-dir",
+                "./build",
+                "./BSB_LAN",
+                "--verbose"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "Arduino CLI: Upload",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "if [[ \"${input:device}\" == arduino:* ]]; then sep=\":\"; else sep=\",\"; fi; arduino-cli upload -b \"${input:device}${sep}${input:uploadSpeed}\" -p ${input:port} --input-dir ${workspaceFolder}/build --verbose"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "dependsOn": [
+                "Arduino CLI: Build"
+            ],
+            "dependsOrder": "sequence",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "device",
+            "type": "pickString",
+            "description": "Select your board (FQBN, upload speed in next step)",
+            "options": [
+                {
+                    "label": "ESP32-EVB",
+                    "value": "esp32:esp32:esp32-evb:PartitionScheme=min_spiffs"
+                },
+                {
+                    "label": "ESP32-DevKit ",
+                    "value": "esp32:esp32:esp32:PartitionScheme=min_spiffs"
+                },
+                {
+                    "label": "Arduino Due",
+                    "value": "arduino:sam:arduino_due_x"
+                }
+            ]
+        },
+        {
+            "id": "uploadSpeed",
+            "type": "pickString",
+            "description": "Select your supported upload speed",
+            "options": [
+                "UploadSpeed=921600",
+                "UploadSpeed=460800",
+                "UploadSpeed=115200",
+            ],
+            "default": "UploadSpeed=460800"
+        },
+        {
+            "id": "port",
+            "type": "promptString",
+            "description": "Serial port (e.g., /dev/ttyUSB0, /dev/ttyACM0, COM3)",
+            "default": "/dev/ttyUSB0"
+        }
+    ]
+}

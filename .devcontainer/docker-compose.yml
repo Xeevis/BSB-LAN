@@ -1,0 +1,10 @@
+services:
+  app:
+    build: ./
+    # env_file: devcontainer.env
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - ..:/workspace:cached
+      - /workspace/bin
+    command: sleep infinity
