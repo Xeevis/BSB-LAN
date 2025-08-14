@@ -1,9 +1,6 @@
 {
     "name": "BSB-LAN",
     "dockerComposeFile": "./docker-compose.yml",
-    "mounts": [
-        "source=/dev,target=/dev,type=bind,consistency=consistent"
-    ],
     // Attach CH340/CH341 USB‑to‑serial bridge usually found on ESP32 boards; TODO Arduino Due
     "initializeCommand": "usbipd attach --hardware-id 1a86:7523 --wsl || ver>nul",
     "postCreateCommand": "./.devcontainer/postCreateCommand.sh",

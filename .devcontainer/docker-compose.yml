@@ -2,9 +2,16 @@ services:
   app:
     build: ./
     # env_file: devcontainer.env
-    devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
+    device_cgroup_rules:
+      - c 188:* rw # for USB serial converters (/dev/ttyUSB*)
+      - c 166:* rw # for ACM USB CDC devices (/dev/ttyACM*)
+    group_add:
+      - dialout
     volumes:
       - ..:/workspace:cached
       - /workspace/bin
+      - /dev:/dev
+      - arduino_data:/home/vscode/.arduino15
     command: sleep infinity
+volumes:
+  arduino_data:
