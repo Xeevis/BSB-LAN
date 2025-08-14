@@ -4,6 +4,8 @@ services:
     # env_file: devcontainer.env
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
+    group_add:
+      - dialout
     volumes:
       - ..:/workspace:cached
       - /workspace/bin
