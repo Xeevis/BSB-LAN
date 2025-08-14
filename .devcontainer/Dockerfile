@@ -9,8 +9,6 @@ python3-venv \
 # (direct binary, no extras)
 RUN curl -fsSL https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit.tar.gz \
 | tar -xz -C /usr/local/bin
-
-RUN usermod -a -G dialout vscode
 USER vscode
 ENV HOME=/home/vscode
 
