@@ -7,4 +7,5 @@ services:
     volumes:
       - ..:/workspace:cached
       - /workspace/bin
+      - /dev:/dev
     command: sleep infinity
