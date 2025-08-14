@@ -10,4 +10,7 @@ services:
       - ..:/workspace:cached
       - /workspace/bin
       - /dev:/dev
+      - arduino_data:/home/vscode/.arduino15
     command: sleep infinity
+volumes:
+  arduino_data:
